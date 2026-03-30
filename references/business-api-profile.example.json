@@ -1,0 +1,64 @@
+{
+  "goal": {
+    "audience": "运营负责人",
+    "topic": "活动投放日报",
+    "decision": "判断渠道质量并决定预算调整"
+  },
+  "prototype": {
+    "layout": "从上到下",
+    "modules": [
+      { "name": "KPI卡", "type": "kpi", "purpose": "展示核心指标" },
+      { "name": "趋势图", "type": "chart", "purpose": "查看近7日变化" },
+      { "name": "明细表", "type": "table", "purpose": "查看渠道明细并排序分页" }
+    ]
+  },
+  "apis": [
+    {
+      "id": "overview",
+      "method": "GET",
+      "url": "/api/report/overview",
+      "params": { "startDate": "YYYY-MM-DD", "endDate": "YYYY-MM-DD" },
+      "responseKeys": ["impressions", "clicks", "cost", "ctr", "cpc"],
+      "auth": "Bearer"
+    },
+    {
+      "id": "trend",
+      "method": "GET",
+      "url": "/api/report/trend",
+      "params": { "startDate": "YYYY-MM-DD", "endDate": "YYYY-MM-DD", "granularity": "day" },
+      "responseKeys": ["date", "impressions", "clicks", "cost"],
+      "auth": "Bearer"
+    },
+    {
+      "id": "channelList",
+      "method": "GET",
+      "url": "/api/report/channel-list",
+      "params": { "page": 1, "pageSize": 20, "sortBy": "cost", "order": "desc" },
+      "responseKeys": ["channel", "impressions", "clicks", "cost", "ctr", "conversions"],
+      "auth": "Bearer"
+    }
+  ],
+  "mapping": [
+    { "ui": "KPI.曝光", "api": "overview.impressions" },
+    { "ui": "KPI.点击", "api": "overview.clicks" },
+    { "ui": "KPI.花费", "api": "overview.cost" },
+    { "ui": "趋势图.X轴", "api": "trend.date" },
+    { "ui": "趋势图.曝光", "api": "trend.impressions" },
+    { "ui": "趋势图.点击", "api": "trend.clicks" },
+    { "ui": "明细表.渠道", "api": "channelList.channel" },
+    { "ui": "明细表.转化", "api": "channelList.conversions" }
+  ],
+  "interactions": ["dateRange", "sort", "paginate", "refresh"],
+  "constraints": {
+    "stack": "原生HTML+CSS+JS",
+    "output": "single-file index.html",
+    "allowLibs": [],
+    "codeOnly": true
+  },
+  "acceptance": [
+    "页面可直接打开运行",
+    "字段映射与接口一致",
+    "loading/empty/error 状态可见",
+    "移动端与桌面端可用"
+  ]
+}

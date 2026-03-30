@@ -1,0 +1,38 @@
+{
+  "goal": {
+    "audience": "<填写：谁看报表>",
+    "topic": "<填写：报表主题>",
+    "decision": "<填写：用于什么决策>"
+  },
+  "prototype": {
+    "layout": "<填写：从上到下/左右分栏>",
+    "modules": [
+      { "name": "<模块名>", "type": "kpi|chart|table|filter|text", "purpose": "<用途>" }
+    ]
+  },
+  "apis": [
+    {
+      "id": "<api标识>",
+      "method": "GET",
+      "url": "<接口URL>",
+      "params": { "<参数>": "<类型或示例>" },
+      "responseKeys": ["<字段1>", "<字段2>"],
+      "auth": "<Bearer/Cookie/None>"
+    }
+  ],
+  "mapping": [
+    { "ui": "<UI字段路径>", "api": "<apiId.字段路径>" }
+  ],
+  "interactions": ["dateRange", "sort", "paginate", "refresh"],
+  "constraints": {
+    "stack": "原生HTML+CSS+JS",
+    "output": "single-file index.html",
+    "allowLibs": [],
+    "codeOnly": true
+  },
+  "acceptance": [
+    "页面可直接运行",
+    "字段映射完整",
+    "loading/empty/error 状态可见"
+  ]
+}
